@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Titanic Survival Predictor 🚢</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .error {
+            color: #ff4d4d;
+            font-size: 0.9rem;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay"></div>
+    <div class="container">
+        <h1 class="title">🌊 Titanic Survival Predictor 🚢</h1>
+        <p class="subtitle">“A cinematic journey into fate and survival”</p>
+
+        <form action="/predict" method="post" class="form-card" id="predictionForm">
+            
+            <label>Pclass (Ticket Class):</label>
+            <select name="pclass">
+                <option value="1">1st Class 💎</option>
+                <option value="2">2nd Class 🌟</option>
+                <option value="3">3rd Class ⚓</option>
+            </select>
+
+            <label>Sex:</label>
+            <select name="sex">
+                <option value="0">Female 👩</option>
+                <option value="1">Male 👨</option>
+            </select>
+
+            <label>Age:</label>
+            <input type="number" name="age" id="age" min="0" step="1" placeholder="Enter Age" required>
+            <div id="ageError" class="error">Age cannot be negative 🚫</div>
+
+            <label>Siblings/Spouses Aboard (SibSp):</label>
+            <input type="number" name="sibsp" id="sibsp" min="0" step="1" placeholder="No. of Siblings/Spouses" required>
+            <div id="sibspError" class="error">SibSp cannot be negative 🚫</div>
+
+            <label>Parents/Children Aboard (Parch):</label>
+            <input type="number" name="parch" id="parch" min="0" step="1" placeholder="No. of Parents/Children" required>
+            <div id="parchError" class="error">Parch cannot be negative 🚫</div>
+
+            <label>Fare (Ticket Price 💰):</label>
+            <input type="number" name="fare" id="fare" min="0" step="1" placeholder="Enter Fare" required>
+            <div id="fareError" class="error">Fare cannot be negative 🚫</div>
+
+            <label>Embarked (Port):</label>
+            <select name="embarked">
+                <option value="0">Southampton ⚓</option>
+                <option value="1">Cherbourg 🏰</option>
+                <option value="2">Queenstown 🏝️</option>
+            </select>
+
+            <button type="submit" class="btn">Predict 🎬</button>
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById("predictionForm");
+
+        form.addEventListener("submit", function(event) {
+            let valid = true;
+
+            const fields = [
+                {id: "age", errorId: "ageError"},
+                {id: "sibsp", errorId: "sibspError"},
+                {id: "parch", errorId: "parchError"},
+                {id: "fare", errorId: "fareError"},
+            ];
+
+            fields.forEach(field => {
+                const input = document.getElementById(field.id);
+                const error = document.getElementById(field.errorId);
+
+                if (input.value < 0) {
+                    error.style.display = "block";
+                    input.value = 0;
+                    valid = false;
+                } else {
+                    error.style.display = "none";
+                }
+            });
+
+            if (!valid) {
+                event.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Prediction Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="card">
+  <h2>Prediction Result</h2>
+  <p><strong>{{ result }}</strong></p>
+  {% if probability %}
+    <p>Survival Probability: <strong>{{ probability }}%</strong></p>
+  {% endif %}
+  <a href="/">Try Again</a>
+</div>
+
+</body>
+</html>
